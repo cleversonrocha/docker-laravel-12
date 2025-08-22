@@ -13,8 +13,13 @@ done
 
 echo "PHP está pronto!"
 
-# Verifica se o diretório node_modules existe, se não existir, instala as dependências;
-npm install
+# Verifica se node_modules existe
+if [ ! -d "node_modules" ]; then
+    echo "node_modules não encontrado. Instalando dependências..."
+    npm install
+else
+    echo "node_modules já existe. Pulando npm install."
+fi
 
 # Executa o comando passado como argumento ao script;
 exec "$@"

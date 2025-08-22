@@ -13,9 +13,9 @@ RUN apk add --no-cache dos2unix && \
 
 RUN apk add --no-cache netcat-openbsd
 
+WORKDIR /var/www/html
+
 # Define o entrypoint
 ENTRYPOINT ["/usr/local/bin/node_entrypoint.sh"]
-
-WORKDIR /var/www/html
 
 CMD ["npm", "run", "dev"]

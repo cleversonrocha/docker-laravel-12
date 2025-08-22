@@ -6,6 +6,36 @@ if [ ! -f /var/www/html/artisan ]; then
     echo "Instalando Laravel..."
     composer create-project laravel/laravel='^12.0' /var/www/html --prefer-dist
 
+# Substitui o vite.config.js padrão por um customizado
+cat > vite.config.js <<'EOL'
+import { defineConfig } from 'vite';
+import laravel from 'laravel-vite-plugin';
+import tailwindcss from '@tailwindcss/vite';
+
+export default defineConfig({
+    plugins: [
+        laravel({
+            input: ['resources/css/app.css', 'resources/js/app.js'],
+            refresh: true,
+        }),
+        tailwindcss(),
+    ],
+    server: {
+        host: '0.0.0.0',
+        port: 5173,
+        strictPort: true,
+        hmr: {
+            host: 'localhost',
+            port: 5173,
+            protocol: 'ws',
+        },        
+        watch: {
+            usePolling: true
+        }
+    }
+});
+EOL
+
     echo "Ajustando permissões..."
     chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
