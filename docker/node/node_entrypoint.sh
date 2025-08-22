@@ -17,6 +17,7 @@ echo "PHP está pronto!"
 if [ ! -d "node_modules" ]; then
     echo "node_modules não encontrado. Instalando dependências..."
     npm install
+    echo "Dependências instaladas com sucesso."
 else
     echo "node_modules já existe. Pulando npm install."
 fi
